@@ -1,0 +1,41 @@
+{
+  "$schema": "https://driftguard.dev/schema/v1.json",
+  "contextFiles": [
+    "CLAUDE.md",
+    "AGENTS.md"
+  ],
+  "confidenceThreshold": 0.65,
+  "ignorePaths": [
+    "node_modules/**",
+    "dist/**",
+    "*.lock",
+    "*.snap",
+    "*.generated.*"
+  ],
+  "ignoreCommitPatterns": [
+    "^chore\\(driftguard\\):",
+    "^Merge pull request"
+  ],
+  "provider": "anthropic",
+  "model": "claude-3-haiku-20240307",
+  "ollamaBaseUrl": "http://localhost:11434",
+  "groqBaseUrl": "https://api.groq.com/openai/v1",
+  "maxTokensPerProposal": 2000,
+  "prMode": {
+    "enabled": false,
+    "autoCreatePR": false,
+    "baseBranch": "main",
+    "titleTemplate": "chore(driftguard): update {filename} — {trigger}",
+    "labels": [
+      "context-drift",
+      "automated"
+    ],
+    "assignees": [],
+    "reviewers": []
+  },
+  "output": {
+    "mode": "local",
+    "verbose": false,
+    "hookMode": false
+  }
+}

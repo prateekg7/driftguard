@@ -1,0 +1,55 @@
+{
+  "name": "driftguard",
+  "version": "1.0.0",
+  "description": "Detect semantic drift in AI agent context files after code changes.",
+  "type": "module",
+  "packageManager": "pnpm@9.15.4",
+  "bin": {
+    "driftguard": "./dist/index.cjs"
+  },
+  "files": [
+    "dist",
+    "hooks",
+    "action",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "build:action": "tsup --config tsup.action.config.ts",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm run build && pnpm run test"
+  },
+  "keywords": [
+    "ai",
+    "claude",
+    "agents",
+    "git-hooks",
+    "context"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^3.0.1",
+    "@actions/github": "^9.1.1",
+    "@anthropic-ai/sdk": "^0.59.0",
+    "@octokit/rest": "^22.0.1",
+    "chalk": "^5.4.1",
+    "commander": "^12.1.0",
+    "execa": "^9.6.0",
+    "openai": "^6.39.1",
+    "ora": "^8.2.0",
+    "simple-git": "^3.27.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  }
+}

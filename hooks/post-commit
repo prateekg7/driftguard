@@ -1,0 +1,6 @@
+#!/bin/sh
+# driftguard post-commit hook
+# Installed by: npx driftguard init
+# Remove with:  npx driftguard uninstall
+
+npx driftguard scan --hook-mode 2>/dev/null || true

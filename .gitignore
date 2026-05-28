@@ -1,0 +1,13 @@
+node_modules/
+dist/
+action/dist/
+coverage/
+.DS_Store
+*.log
+.env
+.env.local
+.driftguard/
+CLAUDE.md.suggested
+AGENTS.md.suggested
+*.drift-report.md
+driftguard.config.local.json

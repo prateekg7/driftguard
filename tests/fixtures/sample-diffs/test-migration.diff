@@ -1,0 +1,13 @@
+diff --git a/package.json b/package.json
+index 1234567..89abcde 100644
+--- a/package.json
++++ b/package.json
+@@ -5,8 +5,8 @@
+   "scripts": {
+-    "test": "jest"
++    "test": "vitest run"
+   },
+   "devDependencies": {
+-    "jest": "^29.0.0"
++    "vitest": "^2.0.0"
+   }

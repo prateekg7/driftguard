@@ -34,4 +34,4 @@ outputs:
 
 runs:
   using: node20
-  main: dist/action.js
+  main: dist/action.cjs

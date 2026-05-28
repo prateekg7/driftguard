@@ -14,6 +14,6 @@ export default defineConfig({
   outDir: 'action/dist',
   noExternal: [/.*/],
   outExtension() {
-    return { js: '.js' };
+    return { js: '.cjs' };
   },
 });

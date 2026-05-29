@@ -58443,6 +58443,7 @@ async function run() {
       return { contextFile, flaggedStatements };
     });
     const allFlaggedStatements = flaggedStatementsByFile.flatMap((item) => item.flaggedStatements);
+    process.stdout.write("ANTIGRAVITY_FLAGS:" + allFlaggedStatements.length + "\n");
     if (allFlaggedStatements.length === 0) {
       setNoDriftOutputs();
       return;
@@ -58459,6 +58460,7 @@ async function run() {
         })
       );
     }
+    process.stdout.write("ANTIGRAVITY_PROPOSAL_DONE\n");
     const proposalText = proposals.map((proposal) => proposal.unifiedDiff.trim()).filter(Boolean).join("\n\n");
     const confidence = Math.max(0, ...proposals.map((proposal) => proposal.confidence));
     setOutput("drift-detected", "true");
@@ -58469,6 +58471,7 @@ async function run() {
         body: buildDriftguardComment(proposalText, confidence, allFlaggedStatements.length),
         issueNumber: pullRequest.number
       });
+      process.stdout.write("ANTIGRAVITY_COMMENT_DONE\n");
     }
   } catch (error52) {
     const message = error52 instanceof Error ? error52.message : String(error52);

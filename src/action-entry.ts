@@ -52,6 +52,7 @@ async function run(): Promise<void> {
       return { contextFile, flaggedStatements };
     });
     const allFlaggedStatements = flaggedStatementsByFile.flatMap((item) => item.flaggedStatements);
+    process.stdout.write("ANTIGRAVITY_FLAGS:" + allFlaggedStatements.length + "\n");
 
     if (allFlaggedStatements.length === 0) {
       setNoDriftOutputs();
@@ -71,6 +72,7 @@ async function run(): Promise<void> {
         }),
       );
     }
+    process.stdout.write("ANTIGRAVITY_PROPOSAL_DONE\n");
 
     const proposalText = proposals
       .map((proposal) => proposal.unifiedDiff.trim())
@@ -87,6 +89,7 @@ async function run(): Promise<void> {
         body: buildDriftguardComment(proposalText, confidence, allFlaggedStatements.length),
         issueNumber: pullRequest.number,
       });
+      process.stdout.write("ANTIGRAVITY_COMMENT_DONE\n");
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);

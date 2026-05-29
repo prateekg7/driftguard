@@ -104,6 +104,8 @@ export async function generateProposal(
       }),
     );
 
+    await new Promise(resolve => setTimeout(resolve, 0));
+
     if (responseText.includes('NO_CHANGES_NEEDED')) {
       return createEmptyProposal('✓ No updates needed', confidence);
     }
@@ -227,7 +229,9 @@ async function callGroq(
     ],
   });
 
-  return extractOpenAITextResponse(response);
+  const rawResponse = extractOpenAITextResponse(response);
+  const responseText = await Promise.resolve(rawResponse);
+  return responseText;
 }
 
 function extractOpenAITextResponse(response: OpenAIMessageResponse): string {

@@ -58216,6 +58216,7 @@ async function generateProposal(contextFile, flaggedStatements, diff, options = 
         provider
       })
     );
+    await new Promise((resolve) => setTimeout(resolve, 0));
     if (responseText.includes("NO_CHANGES_NEEDED")) {
       return createEmptyProposal("\u2713 No updates needed", confidence);
     }
@@ -58297,7 +58298,9 @@ async function callGroq(systemPrompt, userPrompt, options) {
       { role: "user", content: userPrompt }
     ]
   });
-  return extractOpenAITextResponse(response);
+  const rawResponse = extractOpenAITextResponse(response);
+  const responseText = await Promise.resolve(rawResponse);
+  return responseText;
 }
 function extractOpenAITextResponse(response) {
   return response.choices.map((choice) => choice.message?.content?.trim()).filter((text) => Boolean(text)).join("\n").trim();

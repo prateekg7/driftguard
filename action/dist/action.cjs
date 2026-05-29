@@ -58409,11 +58409,9 @@ function createEmptyProposal(reasoning, confidence = 0) {
 var driftguardCommentMarker = "<!-- driftguard-comment -->";
 async function run() {
   try {
-    process.stdout.write("ANTIGRAVITY_START\n");
     const eventPath = process.env.GITHUB_EVENT_PATH;
     const payload = eventPath ? JSON.parse(fs3.readFileSync(eventPath, "utf8")) : {};
     const pullRequest = payload.pull_request;
-    process.stdout.write("ANTIGRAVITY_PAYLOAD:" + JSON.stringify(!!pullRequest) + "\n");
     if (!pullRequest) {
       warning("driftguard action only runs on pull_request events. Exiting without changes.");
       setNoDriftOutputs();
@@ -58422,7 +58420,6 @@ async function run() {
     hydrateProviderEnvironment();
     const repoRoot = process.cwd();
     const config2 = loadConfig(repoRoot);
-    process.stdout.write("ANTIGRAVITY_CONFIG_LOADED\n");
     const threshold = Number(getInput("confidence-threshold") || config2.confidenceThreshold);
     const baseSha = pullRequest.base?.sha;
     const headSha = pullRequest.head?.sha;
@@ -58432,7 +58429,6 @@ async function run() {
       return;
     }
     const diff = await getDiffFromRange(baseSha, headSha);
-    process.stdout.write("ANTIGRAVITY_DIFF_DONE\n");
     const contextFiles = findContextFiles(repoRoot, config2.contextFiles);
     const flaggedStatementsByFile = contextFiles.map((contextPath) => {
       const contextFile = parseContextFile(contextPath);
@@ -58443,7 +58439,6 @@ async function run() {
       return { contextFile, flaggedStatements };
     });
     const allFlaggedStatements = flaggedStatementsByFile.flatMap((item) => item.flaggedStatements);
-    process.stdout.write("ANTIGRAVITY_FLAGS:" + allFlaggedStatements.length + "\n");
     if (allFlaggedStatements.length === 0) {
       setNoDriftOutputs();
       return;
@@ -58460,7 +58455,6 @@ async function run() {
         })
       );
     }
-    process.stdout.write("ANTIGRAVITY_PROPOSAL_DONE\n");
     const proposalText = proposals.map((proposal) => proposal.unifiedDiff.trim()).filter(Boolean).join("\n\n");
     const confidence = Math.max(0, ...proposals.map((proposal) => proposal.confidence));
     setOutput("drift-detected", "true");
@@ -58471,7 +58465,6 @@ async function run() {
         body: buildDriftguardComment(proposalText, confidence, allFlaggedStatements.length),
         issueNumber: pullRequest.number
       });
-      process.stdout.write("ANTIGRAVITY_COMMENT_DONE\n");
     }
   } catch (error52) {
     const message = error52 instanceof Error ? error52.message : String(error52);

@@ -1,3 +1,4 @@
+import * as fs from 'node:fs';
 import * as core from '@actions/core';
 import * as github from '@actions/github';
 import { findContextFiles, parseContextFile } from './core/contextParser.js';
@@ -11,7 +12,9 @@ const driftguardCommentMarker = '<!-- driftguard-comment -->';
 
 async function run(): Promise<void> {
   try {
-    const pullRequest = github.context.payload.pull_request;
+    const eventPath = process.env.GITHUB_EVENT_PATH;
+    const payload = eventPath ? JSON.parse(fs.readFileSync(eventPath, 'utf8')) : {};
+    const pullRequest = payload.pull_request;
 
     if (!pullRequest) {
       core.warning('driftguard action only runs on pull_request events. Exiting without changes.');

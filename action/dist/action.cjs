@@ -20329,6 +20329,9 @@ var require_dist3 = __commonJS({
   }
 });
 
+// src/action-entry.ts
+var fs3 = __toESM(require("fs"), 1);
+
 // node_modules/.pnpm/@actions+core@3.0.1/node_modules/@actions/core/lib/command.js
 var os = __toESM(require("os"), 1);
 
@@ -58406,7 +58409,9 @@ function createEmptyProposal(reasoning, confidence = 0) {
 var driftguardCommentMarker = "<!-- driftguard-comment -->";
 async function run() {
   try {
-    const pullRequest = context2.payload.pull_request;
+    const eventPath = process.env.GITHUB_EVENT_PATH;
+    const payload = eventPath ? JSON.parse(fs3.readFileSync(eventPath, "utf8")) : {};
+    const pullRequest = payload.pull_request;
     if (!pullRequest) {
       warning("driftguard action only runs on pull_request events. Exiting without changes.");
       setNoDriftOutputs();

@@ -158,7 +158,7 @@ export function getDefaultModelForProvider(provider: DriftguardConfig['provider'
   }
 
   if (provider === 'groq') {
-    return 'llama-3.1-8b-instant';
+    return 'llama-3.3-70b-versatile';
   }
 
   return 'claude-3-haiku-20240307';

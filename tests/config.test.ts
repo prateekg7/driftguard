@@ -74,7 +74,7 @@ describe('config', () => {
 
     expect(loadConfig(openaiRoot).model).toBe('gpt-4o-mini');
     expect(loadConfig(ollamaRoot).model).toBe('llama3');
-    expect(loadConfig(groqRoot).model).toBe('llama-3.1-8b-instant');
+    expect(loadConfig(groqRoot).model).toBe('llama-3.3-70b-versatile');
     expect(loadConfig(explicitRoot).model).toBe('gpt-4.1-mini');
     expect(getDefaultModelForProvider('anthropic')).toBe('claude-3-haiku-20240307');
   });

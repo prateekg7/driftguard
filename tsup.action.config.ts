@@ -9,7 +9,7 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   splitting: false,
-  target: 'node20',
+  target: 'node24',
   platform: 'node',
   outDir: 'action/dist',
   noExternal: [/.*/],

@@ -98,7 +98,7 @@ describe('proposalGenerator', () => {
     ).resolves.toContain('+++ b/CLAUDE.md');
 
     expect(groqClient.chat.completions.create).toHaveBeenCalledWith({
-      model: 'llama-3.1-8b-instant',
+      model: 'llama-3.3-70b-versatile',
       max_tokens: 2000,
       messages: [
         { role: 'system', content: 'system prompt' },

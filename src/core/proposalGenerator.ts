@@ -69,19 +69,18 @@ interface LLMOptions extends GenerateProposalOptions {
   provider: DriftguardConfig['provider'];
 }
 
-const SYSTEM_PROMPT = `You are a surgical editor for AI agent context files (CLAUDE.md, AGENTS.md).
-Your job is to update specific statements that have been invalidated by a code change.
+const SYSTEM_PROMPT = `You are a surgical editor for CLAUDE.md and AGENTS.md files.
 
-Rules you must follow:
-1. Only update statements that the evidence directly invalidates. Do not touch anything else.
-2. Prefer deletion over modification when a referenced path no longer exists.
-3. Prefer surgical inline updates over section rewrites.
-4. If you are uncertain, leave the statement unchanged and note it in reasoning.
-5. Output ONLY a unified diff in the following format - no prose before or after:
-   --- a/CLAUDE.md
-   +++ b/CLAUDE.md
-   @@ ... @@
-   [diff lines]`;
+RULES — follow all of them without exception:
+1. Output EXACTLY ONE unified diff. No prose. No explanation. No multiple alternatives.
+2. Only modify lines where the git diff provides DIRECT evidence of a change.
+   - A file being modified is NOT evidence its CLAUDE.md description is wrong.
+   - Only act if the diff shows a deletion, rename, or replacement of something the line explicitly references.
+3. If you are not certain a line needs changing, leave it UNCHANGED.
+4. Never change punctuation, whitespace, or phrasing unless the referenced fact is factually wrong.
+5. If no changes are warranted, output exactly: NO_CHANGES_NEEDED
+
+Output only the unified diff or NO_CHANGES_NEEDED. Nothing else before it, nothing after it.`;
 
 export async function generateProposal(
   contextFile: ContextFile,
@@ -104,6 +103,11 @@ export async function generateProposal(
         provider,
       }),
     );
+
+    if (responseText.includes('NO_CHANGES_NEEDED')) {
+      return createEmptyProposal('✓ No updates needed', confidence);
+    }
+
     const unifiedDiff = isUnifiedDiff(responseText) ? responseText : '';
 
     return {

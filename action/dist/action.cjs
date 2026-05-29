@@ -58200,6 +58200,10 @@ RULES \u2014 follow all of them without exception:
 3. If you are not certain a line needs changing, leave it UNCHANGED.
 4. Never change punctuation, whitespace, or phrasing unless the referenced fact is factually wrong.
 5. If no changes are warranted, output exactly: NO_CHANGES_NEEDED
+6. Never delete a line entirely if the referenced entity still exists at the same path.
+   If \`src/auth.ts\` still exists but its implementation changed, UPDATE the description
+   to reflect the new implementation \u2014 do not delete the line.
+   Only delete a line if the referenced file or entity no longer exists at all.
 
 Output only the unified diff or NO_CHANGES_NEEDED. Nothing else before it, nothing after it.`;
 async function generateProposal(contextFile, flaggedStatements, diff, options = {}) {
@@ -58525,7 +58529,7 @@ async function upsertDriftguardComment(options) {
 }
 function buildDriftguardComment(proposal, confidence, flaggedStatementCount) {
   return `${driftguardCommentMarker}
-## \u{1F504} driftguard: Context Drift Warning
+## driftguard: Context Drift Warning
 
 This PR changes files that are referenced in \`CLAUDE.md\`.
 Your context file may need an update.

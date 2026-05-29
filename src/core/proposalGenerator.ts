@@ -79,6 +79,10 @@ RULES — follow all of them without exception:
 3. If you are not certain a line needs changing, leave it UNCHANGED.
 4. Never change punctuation, whitespace, or phrasing unless the referenced fact is factually wrong.
 5. If no changes are warranted, output exactly: NO_CHANGES_NEEDED
+6. Never delete a line entirely if the referenced entity still exists at the same path.
+   If \`src/auth.ts\` still exists but its implementation changed, UPDATE the description
+   to reflect the new implementation — do not delete the line.
+   Only delete a line if the referenced file or entity no longer exists at all.
 
 Output only the unified diff or NO_CHANGES_NEEDED. Nothing else before it, nothing after it.`;
 

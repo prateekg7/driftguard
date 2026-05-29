@@ -155,7 +155,7 @@ function buildDriftguardComment(
   flaggedStatementCount: number,
 ): string {
   return `${driftguardCommentMarker}
-## 🔄 driftguard: Context Drift Warning
+## driftguard: Context Drift Warning
 
 This PR changes files that are referenced in \`CLAUDE.md\`.
 Your context file may need an update.

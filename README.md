@@ -9,7 +9,7 @@ Live demo PR: https://github.com/prateekg7/throwaway-test/pull/1
 ## Quick Start
 
 ```sh
-npm install -D driftguard
+npm install -D agent-driftguard
 export GROQ_API_KEY=your_key_here
 npx driftguard init
 npx driftguard scan

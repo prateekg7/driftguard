@@ -157,18 +157,18 @@ var require_tunnel = __commonJS({
             res.statusCode
           );
           socket.destroy();
-          var error51 = new Error("tunneling socket could not be established, statusCode=" + res.statusCode);
-          error51.code = "ECONNRESET";
-          options.request.emit("error", error51);
+          var error52 = new Error("tunneling socket could not be established, statusCode=" + res.statusCode);
+          error52.code = "ECONNRESET";
+          options.request.emit("error", error52);
           self.removeSocket(placeholder);
           return;
         }
         if (head.length > 0) {
           debug3("got illegal response body from proxy");
           socket.destroy();
-          var error51 = new Error("got illegal response body from proxy");
-          error51.code = "ECONNRESET";
-          options.request.emit("error", error51);
+          var error52 = new Error("got illegal response body from proxy");
+          error52.code = "ECONNRESET";
+          options.request.emit("error", error52);
           self.removeSocket(placeholder);
           return;
         }
@@ -183,9 +183,9 @@ var require_tunnel = __commonJS({
           cause.message,
           cause.stack
         );
-        var error51 = new Error("tunneling socket could not be established, cause=" + cause.message);
-        error51.code = "ECONNRESET";
-        options.request.emit("error", error51);
+        var error52 = new Error("tunneling socket could not be established, cause=" + cause.message);
+        error52.code = "ECONNRESET";
+        options.request.emit("error", error52);
         self.removeSocket(placeholder);
       }
     };
@@ -1516,14 +1516,14 @@ var require_diagnostics = __commonJS({
       diagnosticsChannel.channel("undici:client:connectError").subscribe((evt) => {
         const {
           connectParams: { version: version2, protocol, port, host },
-          error: error51
+          error: error52
         } = evt;
         debuglog(
           "connection to %s using %s%s errored - %s",
           `${host}${port ? `:${port}` : ""}`,
           protocol,
           version2,
-          error51.message
+          error52.message
         );
       });
       diagnosticsChannel.channel("undici:client:sendHeaders").subscribe((evt) => {
@@ -1554,14 +1554,14 @@ var require_diagnostics = __commonJS({
       diagnosticsChannel.channel("undici:request:error").subscribe((evt) => {
         const {
           request: { method, path: path5, origin },
-          error: error51
+          error: error52
         } = evt;
         debuglog(
           "request to %s %s/%s errored - %s",
           method,
           origin,
           path5,
-          error51.message
+          error52.message
         );
       });
       isClientSet = true;
@@ -1596,7 +1596,7 @@ var require_diagnostics = __commonJS({
         diagnosticsChannel.channel("undici:client:connectError").subscribe((evt) => {
           const {
             connectParams: { version: version2, protocol, port, host },
-            error: error51
+            error: error52
           } = evt;
           debuglog(
             "connection to %s%s using %s%s errored - %s",
@@ -1604,7 +1604,7 @@ var require_diagnostics = __commonJS({
             port ? `:${port}` : "",
             protocol,
             version2,
-            error51.message
+            error52.message
           );
         });
         diagnosticsChannel.channel("undici:client:sendHeaders").subscribe((evt) => {
@@ -1874,16 +1874,16 @@ var require_request = __commonJS({
           this.onError(err);
         }
       }
-      onError(error51) {
+      onError(error52) {
         this.onFinally();
         if (channels.error.hasSubscribers) {
-          channels.error.publish({ request: this, error: error51 });
+          channels.error.publish({ request: this, error: error52 });
         }
         if (this.aborted) {
           return;
         }
         this.aborted = true;
-        return this[kHandler].onError(error51);
+        return this[kHandler].onError(error52);
       }
       onFinally() {
         if (this.errorHandler) {
@@ -5613,7 +5613,7 @@ Content-Type: ${value.type || "application/octet-stream"}\r
       }
       throwIfAborted(object2[kState]);
       const promise2 = createDeferredPromise();
-      const errorSteps = (error51) => promise2.reject(error51);
+      const errorSteps = (error52) => promise2.reject(error52);
       const successSteps = (data) => {
         try {
           promise2.resolve(convertBytesToJSValue(data));
@@ -7159,8 +7159,8 @@ var require_client_h2 = __commonJS({
         }
         request2.onRequestSent();
         client[kResume]();
-      } catch (error51) {
-        abort(error51);
+      } catch (error52) {
+        abort(error52);
       }
     }
     function writeStream(abort, socket, expectsPayload, h2stream, body, client, request2, contentLength) {
@@ -7315,8 +7315,8 @@ var require_redirect_handler = __commonJS({
       onUpgrade(statusCode, headers, socket) {
         this.handler.onUpgrade(statusCode, headers, socket);
       }
-      onError(error51) {
-        this.handler.onError(error51);
+      onError(error52) {
+        this.handler.onError(error52);
       }
       onHeaders(statusCode, headers, resume, statusText) {
         this.location = this.history.length >= this.maxRedirections || util.isDisturbed(this.opts.body) ? null : parseLocation(statusCode, headers);
@@ -8246,7 +8246,7 @@ var require_pool = __commonJS({
         this[kOptions] = { ...util.deepClone(options), connect, allowH2 };
         this[kOptions].interceptors = options.interceptors ? { ...options.interceptors } : void 0;
         this[kFactory] = factory;
-        this.on("connectionError", (origin2, targets, error51) => {
+        this.on("connectionError", (origin2, targets, error52) => {
           for (const target of targets) {
             const idx = this[kClients].indexOf(target);
             if (idx !== -1) {
@@ -10615,13 +10615,13 @@ var require_mock_utils = __commonJS({
       if (mockDispatch2.data.callback) {
         mockDispatch2.data = { ...mockDispatch2.data, ...mockDispatch2.data.callback(opts) };
       }
-      const { data: { statusCode, data, headers, trailers, error: error51 }, delay: delay2, persist } = mockDispatch2;
+      const { data: { statusCode, data, headers, trailers, error: error52 }, delay: delay2, persist } = mockDispatch2;
       const { timesInvoked, times } = mockDispatch2;
       mockDispatch2.consumed = !persist && timesInvoked >= times;
       mockDispatch2.pending = timesInvoked < times;
-      if (error51 !== null) {
+      if (error52 !== null) {
         deleteMockDispatch(this[kDispatches], key);
-        handler2.onError(error51);
+        handler2.onError(error52);
         return true;
       }
       if (typeof delay2 === "number" && delay2 > 0) {
@@ -10659,19 +10659,19 @@ var require_mock_utils = __commonJS({
         if (agent.isMockActive) {
           try {
             mockDispatch.call(this, opts, handler2);
-          } catch (error51) {
-            if (error51 instanceof MockNotMatchedError) {
+          } catch (error52) {
+            if (error52 instanceof MockNotMatchedError) {
               const netConnect = agent[kGetNetConnect]();
               if (netConnect === false) {
-                throw new MockNotMatchedError(`${error51.message}: subsequent request to origin ${origin} was not allowed (net.connect disabled)`);
+                throw new MockNotMatchedError(`${error52.message}: subsequent request to origin ${origin} was not allowed (net.connect disabled)`);
               }
               if (checkNetConnect(netConnect, origin)) {
                 originalDispatch.call(this, opts, handler2);
               } else {
-                throw new MockNotMatchedError(`${error51.message}: subsequent request to origin ${origin} was not allowed (net.connect is not enabled for this origin)`);
+                throw new MockNotMatchedError(`${error52.message}: subsequent request to origin ${origin} was not allowed (net.connect is not enabled for this origin)`);
               }
             } else {
-              throw error51;
+              throw error52;
             }
           }
         } else {
@@ -10836,11 +10836,11 @@ var require_mock_interceptor = __commonJS({
       /**
        * Mock an undici request with a defined error.
        */
-      replyWithError(error51) {
-        if (typeof error51 === "undefined") {
+      replyWithError(error52) {
+        if (typeof error52 === "undefined") {
           throw new InvalidArgumentError("error must be defined");
         }
-        const newMockDispatch = addMockDispatch(this[kDispatches], this[kDispatchKey], { error: error51 });
+        const newMockDispatch = addMockDispatch(this[kDispatches], this[kDispatchKey], { error: error52 });
         return new MockScope(newMockDispatch);
       }
       /**
@@ -13358,17 +13358,17 @@ var require_fetch = __commonJS({
         this.emit("terminated", reason);
       }
       // https://fetch.spec.whatwg.org/#fetch-controller-abort
-      abort(error51) {
+      abort(error52) {
         if (this.state !== "ongoing") {
           return;
         }
         this.state = "aborted";
-        if (!error51) {
-          error51 = new DOMException("The operation was aborted.", "AbortError");
+        if (!error52) {
+          error52 = new DOMException("The operation was aborted.", "AbortError");
         }
-        this.serializedAbortReason = error51;
-        this.connection?.destroy(error51);
-        this.emit("terminated", error51);
+        this.serializedAbortReason = error52;
+        this.connection?.destroy(error52);
+        this.emit("terminated", error52);
       }
     };
     function handleFetchDone(response) {
@@ -13464,12 +13464,12 @@ var require_fetch = __commonJS({
       );
     }
     var markResourceTiming = performance.markResourceTiming;
-    function abortFetch(p2, request2, responseObject, error51) {
+    function abortFetch(p2, request2, responseObject, error52) {
       if (p2) {
-        p2.reject(error51);
+        p2.reject(error52);
       }
       if (request2.body != null && isReadable(request2.body?.stream)) {
-        request2.body.stream.cancel(error51).catch((err) => {
+        request2.body.stream.cancel(error52).catch((err) => {
           if (err.code === "ERR_INVALID_STATE") {
             return;
           }
@@ -13481,7 +13481,7 @@ var require_fetch = __commonJS({
       }
       const response = responseObject[kState];
       if (response.body != null && isReadable(response.body?.stream)) {
-        response.body.stream.cancel(error51).catch((err) => {
+        response.body.stream.cancel(error52).catch((err) => {
           if (err.code === "ERR_INVALID_STATE") {
             return;
           }
@@ -14302,13 +14302,13 @@ var require_fetch = __commonJS({
               fetchParams.controller.ended = true;
               this.body.push(null);
             },
-            onError(error51) {
+            onError(error52) {
               if (this.abort) {
                 fetchParams.controller.off("terminated", this.abort);
               }
-              this.body?.destroy(error51);
-              fetchParams.controller.terminate(error51);
-              reject(error51);
+              this.body?.destroy(error52);
+              fetchParams.controller.terminate(error52);
+              reject(error52);
             },
             onUpgrade(status, rawHeaders, socket) {
               if (status !== 101) {
@@ -14771,8 +14771,8 @@ var require_util4 = __commonJS({
                   }
                   fr[kResult] = result;
                   fireAProgressEvent("load", fr);
-                } catch (error51) {
-                  fr[kError] = error51;
+                } catch (error52) {
+                  fr[kError] = error52;
                   fireAProgressEvent("error", fr);
                 }
                 if (fr[kState] !== "loading") {
@@ -14781,13 +14781,13 @@ var require_util4 = __commonJS({
               });
               break;
             }
-          } catch (error51) {
+          } catch (error52) {
             if (fr[kAborted]) {
               return;
             }
             queueMicrotask(() => {
               fr[kState] = "done";
-              fr[kError] = error51;
+              fr[kError] = error52;
               fireAProgressEvent("error", fr);
               if (fr[kState] !== "loading") {
                 fireAProgressEvent("loadend", fr);
@@ -17059,11 +17059,11 @@ var require_connection = __commonJS({
         });
       }
     }
-    function onSocketError(error51) {
+    function onSocketError(error52) {
       const { ws } = this;
       ws[kReadyState] = states.CLOSING;
       if (channels.socketError.hasSubscribers) {
-        channels.socketError.publish(error51);
+        channels.socketError.publish(error52);
       }
       this.destroy();
     }
@@ -17345,9 +17345,9 @@ var require_receiver = __commonJS({
                 this.#extensions.get("permessage-deflate").decompress(
                   body,
                   this.#info.fin,
-                  (error51, data) => {
-                    if (error51) {
-                      failWebsocketConnection(this.ws, error51.message);
+                  (error52, data) => {
+                    if (error52) {
+                      failWebsocketConnection(this.ws, error52.message);
                       return;
                     }
                     this.writeFragments(data);
@@ -18401,8 +18401,8 @@ var require_eventsource = __commonJS({
           pipeline(
             response.body.stream,
             eventSourceStream,
-            (error51) => {
-              if (error51?.aborted === false) {
+            (error52) => {
+              if (error52?.aborted === false) {
                 this.close();
                 this.dispatchEvent(new Event("error"));
               }
@@ -20012,14 +20012,14 @@ var require_browser = __commonJS({
         } else {
           exports2.storage.removeItem("debug");
         }
-      } catch (error51) {
+      } catch (error52) {
       }
     }
     function load() {
       let r2;
       try {
         r2 = exports2.storage.getItem("debug") || exports2.storage.getItem("DEBUG");
-      } catch (error51) {
+      } catch (error52) {
       }
       if (!r2 && typeof process !== "undefined" && "env" in process) {
         r2 = process.env.DEBUG;
@@ -20029,7 +20029,7 @@ var require_browser = __commonJS({
     function localstorage() {
       try {
         return localStorage;
-      } catch (error51) {
+      } catch (error52) {
       }
     }
     module2.exports = require_common()(exports2);
@@ -20037,8 +20037,8 @@ var require_browser = __commonJS({
     formatters2.j = function(v) {
       try {
         return JSON.stringify(v);
-      } catch (error51) {
-        return "[UnexpectedJSONParseError]: " + error51.message;
+      } catch (error52) {
+        return "[UnexpectedJSONParseError]: " + error52.message;
       }
     };
   }
@@ -20144,7 +20144,7 @@ var require_node = __commonJS({
           221
         ];
       }
-    } catch (error51) {
+    } catch (error52) {
     }
     exports2.inspectOpts = Object.keys(process.env).filter((key) => {
       return /^debug_/i.test(key);
@@ -20309,10 +20309,10 @@ var require_dist3 = __commonJS({
             done(result);
           }
         },
-        fail(error51) {
+        fail(error52) {
           if (status === "pending") {
             status = "rejected";
-            fail(error51);
+            fail(error52);
           }
         },
         get fulfilled() {
@@ -20821,6 +20821,13 @@ function setOutput(name, value) {
   process.stdout.write(os4.EOL);
   issueCommand("set-output", { name }, toCommandValue(value));
 }
+function setFailed(message) {
+  process.exitCode = ExitCode.Failure;
+  error(message);
+}
+function error(message, properties = {}) {
+  issueCommand("error", toCommandProperties(properties), message instanceof Error ? message.toString() : message);
+}
 function warning(message, properties = {}) {
   issueCommand("warning", toCommandProperties(properties), message instanceof Error ? message.toString() : message);
 }
@@ -21004,8 +21011,8 @@ function addHook(state, kind, name, hook2) {
   }
   if (kind === "error") {
     hook2 = (method, options) => {
-      return Promise.resolve().then(method.bind(null, options)).catch((error51) => {
-        return orig(error51, options);
+      return Promise.resolve().then(method.bind(null, options)).catch((error52) => {
+        return orig(error52, options);
       });
     };
   }
@@ -21565,26 +21572,26 @@ async function fetchWrapper(requestOptions) {
       // See https://fetch.spec.whatwg.org/#dom-requestinit-duplex.
       ...requestOptions.body && { duplex: "half" }
     });
-  } catch (error51) {
+  } catch (error52) {
     let message = "Unknown Error";
-    if (error51 instanceof Error) {
-      if (error51.name === "AbortError") {
-        error51.status = 500;
-        throw error51;
+    if (error52 instanceof Error) {
+      if (error52.name === "AbortError") {
+        error52.status = 500;
+        throw error52;
       }
-      message = error51.message;
-      if (error51.name === "TypeError" && "cause" in error51) {
-        if (error51.cause instanceof Error) {
-          message = error51.cause.message;
-        } else if (typeof error51.cause === "string") {
-          message = error51.cause;
+      message = error52.message;
+      if (error52.name === "TypeError" && "cause" in error52) {
+        if (error52.cause instanceof Error) {
+          message = error52.cause.message;
+        } else if (typeof error52.cause === "string") {
+          message = error52.cause;
         }
       }
     }
     const requestError = new RequestError(message, 500, {
       request: requestOptions
     });
-    requestError.cause = error51;
+    requestError.cause = error52;
     throw requestError;
   }
   const status = fetchResponse.status;
@@ -24482,8 +24489,8 @@ function iterator(octokit, route, parameters) {
             }
           }
           return { value: normalizedResponse };
-        } catch (error51) {
-          if (error51.status !== 409) throw error51;
+        } catch (error52) {
+          if (error52.status !== 409) throw error52;
           url2 = "";
           return {
             value: {
@@ -25892,10 +25899,10 @@ var initializer = (inst, def) => {
 };
 var $ZodError = $constructor("$ZodError", initializer);
 var $ZodRealError = $constructor("$ZodError", initializer, { Parent: Error });
-function flattenError(error51, mapper = (issue3) => issue3.message) {
+function flattenError(error52, mapper = (issue3) => issue3.message) {
   const fieldErrors = {};
   const formErrors = [];
-  for (const sub of error51.issues) {
+  for (const sub of error52.issues) {
     if (sub.path.length > 0) {
       fieldErrors[sub.path[0]] = fieldErrors[sub.path[0]] || [];
       fieldErrors[sub.path[0]].push(mapper(sub));
@@ -25905,10 +25912,10 @@ function flattenError(error51, mapper = (issue3) => issue3.message) {
   }
   return { formErrors, fieldErrors };
 }
-function formatError(error51, mapper = (issue3) => issue3.message) {
+function formatError(error52, mapper = (issue3) => issue3.message) {
   const fieldErrors = { _errors: [] };
-  const processError = (error52, path5 = []) => {
-    for (const issue3 of error52.issues) {
+  const processError = (error53, path5 = []) => {
+    for (const issue3 of error53.issues) {
       if (issue3.code === "invalid_union" && issue3.errors.length) {
         issue3.errors.map((issues) => processError({ issues }, [...path5, ...issue3.path]));
       } else if (issue3.code === "invalid_key") {
@@ -25938,14 +25945,14 @@ function formatError(error51, mapper = (issue3) => issue3.message) {
       }
     }
   };
-  processError(error51);
+  processError(error52);
   return fieldErrors;
 }
-function treeifyError(error51, mapper = (issue3) => issue3.message) {
+function treeifyError(error52, mapper = (issue3) => issue3.message) {
   const result = { errors: [] };
-  const processError = (error52, path5 = []) => {
+  const processError = (error53, path5 = []) => {
     var _a7, _b;
-    for (const issue3 of error52.issues) {
+    for (const issue3 of error53.issues) {
       if (issue3.code === "invalid_union" && issue3.errors.length) {
         issue3.errors.map((issues) => processError({ issues }, [...path5, ...issue3.path]));
       } else if (issue3.code === "invalid_key") {
@@ -25980,7 +25987,7 @@ function treeifyError(error51, mapper = (issue3) => issue3.message) {
       }
     }
   };
-  processError(error51);
+  processError(error52);
   return result;
 }
 function toDotPath(_path) {
@@ -26001,9 +26008,9 @@ function toDotPath(_path) {
   }
   return segs.join("");
 }
-function prettifyError(error51) {
+function prettifyError(error52) {
   const lines = [];
-  const issues = [...error51.issues].sort((a, b2) => (a.path ?? []).length - (b2.path ?? []).length);
+  const issues = [...error52.issues].sort((a, b2) => (a.path ?? []).length - (b2.path ?? []).length);
   for (const issue3 of issues) {
     lines.push(`\u2716 ${issue3.message}`);
     if (issue3.path?.length)
@@ -29001,7 +29008,7 @@ __export(locales_exports, {
 });
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/ar.js
-var error = () => {
+var error2 = () => {
   const Sizable = {
     string: { unit: "\u062D\u0631\u0641", verb: "\u0623\u0646 \u064A\u062D\u0648\u064A" },
     file: { unit: "\u0628\u0627\u064A\u062A", verb: "\u0623\u0646 \u064A\u062D\u0648\u064A" },
@@ -29103,12 +29110,12 @@ var error = () => {
 };
 function ar_default() {
   return {
-    localeError: error()
+    localeError: error2()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/az.js
-var error2 = () => {
+var error3 = () => {
   const Sizable = {
     string: { unit: "simvol", verb: "olmal\u0131d\u0131r" },
     file: { unit: "bayt", verb: "olmal\u0131d\u0131r" },
@@ -29209,7 +29216,7 @@ var error2 = () => {
 };
 function az_default() {
   return {
-    localeError: error2()
+    localeError: error3()
   };
 }
 
@@ -29229,7 +29236,7 @@ function getBelarusianPlural(count, one, few, many) {
   }
   return many;
 }
-var error3 = () => {
+var error4 = () => {
   const Sizable = {
     string: {
       unit: {
@@ -29366,12 +29373,12 @@ var error3 = () => {
 };
 function be_default() {
   return {
-    localeError: error3()
+    localeError: error4()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/bg.js
-var error4 = () => {
+var error5 = () => {
   const Sizable = {
     string: { unit: "\u0441\u0438\u043C\u0432\u043E\u043B\u0430", verb: "\u0434\u0430 \u0441\u044A\u0434\u044A\u0440\u0436\u0430" },
     file: { unit: "\u0431\u0430\u0439\u0442\u0430", verb: "\u0434\u0430 \u0441\u044A\u0434\u044A\u0440\u0436\u0430" },
@@ -29487,12 +29494,12 @@ var error4 = () => {
 };
 function bg_default() {
   return {
-    localeError: error4()
+    localeError: error5()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/ca.js
-var error5 = () => {
+var error6 = () => {
   const Sizable = {
     string: { unit: "car\xE0cters", verb: "contenir" },
     file: { unit: "bytes", verb: "contenir" },
@@ -29596,12 +29603,12 @@ var error5 = () => {
 };
 function ca_default() {
   return {
-    localeError: error5()
+    localeError: error6()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/cs.js
-var error6 = () => {
+var error7 = () => {
   const Sizable = {
     string: { unit: "znak\u016F", verb: "m\xEDt" },
     file: { unit: "bajt\u016F", verb: "m\xEDt" },
@@ -29708,12 +29715,12 @@ var error6 = () => {
 };
 function cs_default() {
   return {
-    localeError: error6()
+    localeError: error7()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/da.js
-var error7 = () => {
+var error8 = () => {
   const Sizable = {
     string: { unit: "tegn", verb: "havde" },
     file: { unit: "bytes", verb: "havde" },
@@ -29824,12 +29831,12 @@ var error7 = () => {
 };
 function da_default() {
   return {
-    localeError: error7()
+    localeError: error8()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/de.js
-var error8 = () => {
+var error9 = () => {
   const Sizable = {
     string: { unit: "Zeichen", verb: "zu haben" },
     file: { unit: "Bytes", verb: "zu haben" },
@@ -29933,12 +29940,12 @@ var error8 = () => {
 };
 function de_default() {
   return {
-    localeError: error8()
+    localeError: error9()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/el.js
-var error9 = () => {
+var error10 = () => {
   const Sizable = {
     string: { unit: "\u03C7\u03B1\u03C1\u03B1\u03BA\u03C4\u03AE\u03C1\u03B5\u03C2", verb: "\u03BD\u03B1 \u03AD\u03C7\u03B5\u03B9" },
     file: { unit: "bytes", verb: "\u03BD\u03B1 \u03AD\u03C7\u03B5\u03B9" },
@@ -30043,12 +30050,12 @@ var error9 = () => {
 };
 function el_default() {
   return {
-    localeError: error9()
+    localeError: error10()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/en.js
-var error10 = () => {
+var error11 = () => {
   const Sizable = {
     string: { unit: "characters", verb: "to have" },
     file: { unit: "bytes", verb: "to have" },
@@ -30156,12 +30163,12 @@ var error10 = () => {
 };
 function en_default() {
   return {
-    localeError: error10()
+    localeError: error11()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/eo.js
-var error11 = () => {
+var error12 = () => {
   const Sizable = {
     string: { unit: "karaktrojn", verb: "havi" },
     file: { unit: "bajtojn", verb: "havi" },
@@ -30266,12 +30273,12 @@ var error11 = () => {
 };
 function eo_default() {
   return {
-    localeError: error11()
+    localeError: error12()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/es.js
-var error12 = () => {
+var error13 = () => {
   const Sizable = {
     string: { unit: "caracteres", verb: "tener" },
     file: { unit: "bytes", verb: "tener" },
@@ -30399,12 +30406,12 @@ var error12 = () => {
 };
 function es_default() {
   return {
-    localeError: error12()
+    localeError: error13()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/fa.js
-var error13 = () => {
+var error14 = () => {
   const Sizable = {
     string: { unit: "\u06A9\u0627\u0631\u0627\u06A9\u062A\u0631", verb: "\u062F\u0627\u0634\u062A\u0647 \u0628\u0627\u0634\u062F" },
     file: { unit: "\u0628\u0627\u06CC\u062A", verb: "\u062F\u0627\u0634\u062A\u0647 \u0628\u0627\u0634\u062F" },
@@ -30514,12 +30521,12 @@ var error13 = () => {
 };
 function fa_default() {
   return {
-    localeError: error13()
+    localeError: error14()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/fi.js
-var error14 = () => {
+var error15 = () => {
   const Sizable = {
     string: { unit: "merkki\xE4", subject: "merkkijonon" },
     file: { unit: "tavua", subject: "tiedoston" },
@@ -30627,12 +30634,12 @@ var error14 = () => {
 };
 function fi_default() {
   return {
-    localeError: error14()
+    localeError: error15()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/fr.js
-var error15 = () => {
+var error16 = () => {
   const Sizable = {
     string: { unit: "caract\xE8res", verb: "avoir" },
     file: { unit: "octets", verb: "avoir" },
@@ -30753,12 +30760,12 @@ var error15 = () => {
 };
 function fr_default() {
   return {
-    localeError: error15()
+    localeError: error16()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/fr-CA.js
-var error16 = () => {
+var error17 = () => {
   const Sizable = {
     string: { unit: "caract\xE8res", verb: "avoir" },
     file: { unit: "octets", verb: "avoir" },
@@ -30861,12 +30868,12 @@ var error16 = () => {
 };
 function fr_CA_default() {
   return {
-    localeError: error16()
+    localeError: error17()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/he.js
-var error17 = () => {
+var error18 = () => {
   const TypeNames = {
     string: { label: "\u05DE\u05D7\u05E8\u05D5\u05D6\u05EA", gender: "f" },
     number: { label: "\u05DE\u05E1\u05E4\u05E8", gender: "m" },
@@ -31056,12 +31063,12 @@ var error17 = () => {
 };
 function he_default() {
   return {
-    localeError: error17()
+    localeError: error18()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/hr.js
-var error18 = () => {
+var error19 = () => {
   const Sizable = {
     string: { unit: "znakova", verb: "imati" },
     file: { unit: "bajtova", verb: "imati" },
@@ -31179,12 +31186,12 @@ var error18 = () => {
 };
 function hr_default() {
   return {
-    localeError: error18()
+    localeError: error19()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/hu.js
-var error19 = () => {
+var error20 = () => {
   const Sizable = {
     string: { unit: "karakter", verb: "legyen" },
     file: { unit: "byte", verb: "legyen" },
@@ -31288,7 +31295,7 @@ var error19 = () => {
 };
 function hu_default() {
   return {
-    localeError: error19()
+    localeError: error20()
   };
 }
 
@@ -31303,7 +31310,7 @@ function withDefiniteArticle(word) {
   const lastChar = word[word.length - 1];
   return word + (vowels.includes(lastChar) ? "\u0576" : "\u0568");
 }
-var error20 = () => {
+var error21 = () => {
   const Sizable = {
     string: {
       unit: {
@@ -31436,12 +31443,12 @@ var error20 = () => {
 };
 function hy_default() {
   return {
-    localeError: error20()
+    localeError: error21()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/id.js
-var error21 = () => {
+var error22 = () => {
   const Sizable = {
     string: { unit: "karakter", verb: "memiliki" },
     file: { unit: "byte", verb: "memiliki" },
@@ -31543,12 +31550,12 @@ var error21 = () => {
 };
 function id_default() {
   return {
-    localeError: error21()
+    localeError: error22()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/is.js
-var error22 = () => {
+var error23 = () => {
   const Sizable = {
     string: { unit: "stafi", verb: "a\xF0 hafa" },
     file: { unit: "b\xE6ti", verb: "a\xF0 hafa" },
@@ -31653,12 +31660,12 @@ var error22 = () => {
 };
 function is_default() {
   return {
-    localeError: error22()
+    localeError: error23()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/it.js
-var error23 = () => {
+var error24 = () => {
   const Sizable = {
     string: { unit: "caratteri", verb: "avere" },
     file: { unit: "byte", verb: "avere" },
@@ -31762,12 +31769,12 @@ var error23 = () => {
 };
 function it_default() {
   return {
-    localeError: error23()
+    localeError: error24()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/ja.js
-var error24 = () => {
+var error25 = () => {
   const Sizable = {
     string: { unit: "\u6587\u5B57", verb: "\u3067\u3042\u308B" },
     file: { unit: "\u30D0\u30A4\u30C8", verb: "\u3067\u3042\u308B" },
@@ -31870,12 +31877,12 @@ var error24 = () => {
 };
 function ja_default() {
   return {
-    localeError: error24()
+    localeError: error25()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/ka.js
-var error25 = () => {
+var error26 = () => {
   const Sizable = {
     string: { unit: "\u10E1\u10D8\u10DB\u10D1\u10DD\u10DA\u10DD", verb: "\u10E3\u10DC\u10D3\u10D0 \u10E8\u10D4\u10D8\u10EA\u10D0\u10D5\u10D3\u10D4\u10E1" },
     file: { unit: "\u10D1\u10D0\u10D8\u10E2\u10D8", verb: "\u10E3\u10DC\u10D3\u10D0 \u10E8\u10D4\u10D8\u10EA\u10D0\u10D5\u10D3\u10D4\u10E1" },
@@ -31983,12 +31990,12 @@ var error25 = () => {
 };
 function ka_default() {
   return {
-    localeError: error25()
+    localeError: error26()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/km.js
-var error26 = () => {
+var error27 = () => {
   const Sizable = {
     string: { unit: "\u178F\u17BD\u17A2\u1780\u17D2\u179F\u179A", verb: "\u1782\u17BD\u179A\u1798\u17B6\u1793" },
     file: { unit: "\u1794\u17C3", verb: "\u1782\u17BD\u179A\u1798\u17B6\u1793" },
@@ -32094,7 +32101,7 @@ var error26 = () => {
 };
 function km_default() {
   return {
-    localeError: error26()
+    localeError: error27()
   };
 }
 
@@ -32104,7 +32111,7 @@ function kh_default() {
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/ko.js
-var error27 = () => {
+var error28 = () => {
   const Sizable = {
     string: { unit: "\uBB38\uC790", verb: "to have" },
     file: { unit: "\uBC14\uC774\uD2B8", verb: "to have" },
@@ -32211,7 +32218,7 @@ var error27 = () => {
 };
 function ko_default() {
   return {
-    localeError: error27()
+    localeError: error28()
   };
 }
 
@@ -32229,7 +32236,7 @@ function getUnitTypeFromNumber(number4) {
     return "one";
   return "few";
 }
-var error28 = () => {
+var error29 = () => {
   const Sizable = {
     string: {
       unit: {
@@ -32415,12 +32422,12 @@ var error28 = () => {
 };
 function lt_default() {
   return {
-    localeError: error28()
+    localeError: error29()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/mk.js
-var error29 = () => {
+var error30 = () => {
   const Sizable = {
     string: { unit: "\u0437\u043D\u0430\u0446\u0438", verb: "\u0434\u0430 \u0438\u043C\u0430\u0430\u0442" },
     file: { unit: "\u0431\u0430\u0458\u0442\u0438", verb: "\u0434\u0430 \u0438\u043C\u0430\u0430\u0442" },
@@ -32525,12 +32532,12 @@ var error29 = () => {
 };
 function mk_default() {
   return {
-    localeError: error29()
+    localeError: error30()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/ms.js
-var error30 = () => {
+var error31 = () => {
   const Sizable = {
     string: { unit: "aksara", verb: "mempunyai" },
     file: { unit: "bait", verb: "mempunyai" },
@@ -32633,12 +32640,12 @@ var error30 = () => {
 };
 function ms_default() {
   return {
-    localeError: error30()
+    localeError: error31()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/nl.js
-var error31 = () => {
+var error32 = () => {
   const Sizable = {
     string: { unit: "tekens", verb: "heeft" },
     file: { unit: "bytes", verb: "heeft" },
@@ -32744,12 +32751,12 @@ var error31 = () => {
 };
 function nl_default() {
   return {
-    localeError: error31()
+    localeError: error32()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/no.js
-var error32 = () => {
+var error33 = () => {
   const Sizable = {
     string: { unit: "tegn", verb: "\xE5 ha" },
     file: { unit: "bytes", verb: "\xE5 ha" },
@@ -32853,12 +32860,12 @@ var error32 = () => {
 };
 function no_default() {
   return {
-    localeError: error32()
+    localeError: error33()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/ota.js
-var error33 = () => {
+var error34 = () => {
   const Sizable = {
     string: { unit: "harf", verb: "olmal\u0131d\u0131r" },
     file: { unit: "bayt", verb: "olmal\u0131d\u0131r" },
@@ -32963,12 +32970,12 @@ var error33 = () => {
 };
 function ota_default() {
   return {
-    localeError: error33()
+    localeError: error34()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/ps.js
-var error34 = () => {
+var error35 = () => {
   const Sizable = {
     string: { unit: "\u062A\u0648\u06A9\u064A", verb: "\u0648\u0644\u0631\u064A" },
     file: { unit: "\u0628\u0627\u06CC\u067C\u0633", verb: "\u0648\u0644\u0631\u064A" },
@@ -33078,12 +33085,12 @@ var error34 = () => {
 };
 function ps_default() {
   return {
-    localeError: error34()
+    localeError: error35()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/pl.js
-var error35 = () => {
+var error36 = () => {
   const Sizable = {
     string: { unit: "znak\xF3w", verb: "mie\u0107" },
     file: { unit: "bajt\xF3w", verb: "mie\u0107" },
@@ -33188,12 +33195,12 @@ var error35 = () => {
 };
 function pl_default() {
   return {
-    localeError: error35()
+    localeError: error36()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/pt.js
-var error36 = () => {
+var error37 = () => {
   const Sizable = {
     string: { unit: "caracteres", verb: "ter" },
     file: { unit: "bytes", verb: "ter" },
@@ -33297,12 +33304,12 @@ var error36 = () => {
 };
 function pt_default() {
   return {
-    localeError: error36()
+    localeError: error37()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/ro.js
-var error37 = () => {
+var error38 = () => {
   const Sizable = {
     string: { unit: "caractere", verb: "s\u0103 aib\u0103" },
     file: { unit: "octe\u021Bi", verb: "s\u0103 aib\u0103" },
@@ -33417,7 +33424,7 @@ var error37 = () => {
 };
 function ro_default() {
   return {
-    localeError: error37()
+    localeError: error38()
   };
 }
 
@@ -33437,7 +33444,7 @@ function getRussianPlural(count, one, few, many) {
   }
   return many;
 }
-var error38 = () => {
+var error39 = () => {
   const Sizable = {
     string: {
       unit: {
@@ -33574,12 +33581,12 @@ var error38 = () => {
 };
 function ru_default() {
   return {
-    localeError: error38()
+    localeError: error39()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/sl.js
-var error39 = () => {
+var error40 = () => {
   const Sizable = {
     string: { unit: "znakov", verb: "imeti" },
     file: { unit: "bajtov", verb: "imeti" },
@@ -33684,12 +33691,12 @@ var error39 = () => {
 };
 function sl_default() {
   return {
-    localeError: error39()
+    localeError: error40()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/sv.js
-var error40 = () => {
+var error41 = () => {
   const Sizable = {
     string: { unit: "tecken", verb: "att ha" },
     file: { unit: "bytes", verb: "att ha" },
@@ -33795,12 +33802,12 @@ var error40 = () => {
 };
 function sv_default() {
   return {
-    localeError: error40()
+    localeError: error41()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/ta.js
-var error41 = () => {
+var error42 = () => {
   const Sizable = {
     string: { unit: "\u0B8E\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BCD\u0B95\u0BB3\u0BCD", verb: "\u0B95\u0BCA\u0BA3\u0BCD\u0B9F\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95 \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD" },
     file: { unit: "\u0BAA\u0BC8\u0B9F\u0BCD\u0B9F\u0BC1\u0B95\u0BB3\u0BCD", verb: "\u0B95\u0BCA\u0BA3\u0BCD\u0B9F\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95 \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD" },
@@ -33906,12 +33913,12 @@ var error41 = () => {
 };
 function ta_default() {
   return {
-    localeError: error41()
+    localeError: error42()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/th.js
-var error42 = () => {
+var error43 = () => {
   const Sizable = {
     string: { unit: "\u0E15\u0E31\u0E27\u0E2D\u0E31\u0E01\u0E29\u0E23", verb: "\u0E04\u0E27\u0E23\u0E21\u0E35" },
     file: { unit: "\u0E44\u0E1A\u0E15\u0E4C", verb: "\u0E04\u0E27\u0E23\u0E21\u0E35" },
@@ -34017,12 +34024,12 @@ var error42 = () => {
 };
 function th_default() {
   return {
-    localeError: error42()
+    localeError: error43()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/tr.js
-var error43 = () => {
+var error44 = () => {
   const Sizable = {
     string: { unit: "karakter", verb: "olmal\u0131" },
     file: { unit: "bayt", verb: "olmal\u0131" },
@@ -34123,12 +34130,12 @@ var error43 = () => {
 };
 function tr_default() {
   return {
-    localeError: error43()
+    localeError: error44()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/uk.js
-var error44 = () => {
+var error45 = () => {
   const Sizable = {
     string: { unit: "\u0441\u0438\u043C\u0432\u043E\u043B\u0456\u0432", verb: "\u043C\u0430\u0442\u0438\u043C\u0435" },
     file: { unit: "\u0431\u0430\u0439\u0442\u0456\u0432", verb: "\u043C\u0430\u0442\u0438\u043C\u0435" },
@@ -34232,7 +34239,7 @@ var error44 = () => {
 };
 function uk_default() {
   return {
-    localeError: error44()
+    localeError: error45()
   };
 }
 
@@ -34242,7 +34249,7 @@ function ua_default() {
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/ur.js
-var error45 = () => {
+var error46 = () => {
   const Sizable = {
     string: { unit: "\u062D\u0631\u0648\u0641", verb: "\u06C1\u0648\u0646\u0627" },
     file: { unit: "\u0628\u0627\u0626\u0679\u0633", verb: "\u06C1\u0648\u0646\u0627" },
@@ -34348,12 +34355,12 @@ var error45 = () => {
 };
 function ur_default() {
   return {
-    localeError: error45()
+    localeError: error46()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/uz.js
-var error46 = () => {
+var error47 = () => {
   const Sizable = {
     string: { unit: "belgi", verb: "bo\u2018lishi kerak" },
     file: { unit: "bayt", verb: "bo\u2018lishi kerak" },
@@ -34459,12 +34466,12 @@ var error46 = () => {
 };
 function uz_default() {
   return {
-    localeError: error46()
+    localeError: error47()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/vi.js
-var error47 = () => {
+var error48 = () => {
   const Sizable = {
     string: { unit: "k\xFD t\u1EF1", verb: "c\xF3" },
     file: { unit: "byte", verb: "c\xF3" },
@@ -34568,12 +34575,12 @@ var error47 = () => {
 };
 function vi_default() {
   return {
-    localeError: error47()
+    localeError: error48()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/zh-CN.js
-var error48 = () => {
+var error49 = () => {
   const Sizable = {
     string: { unit: "\u5B57\u7B26", verb: "\u5305\u542B" },
     file: { unit: "\u5B57\u8282", verb: "\u5305\u542B" },
@@ -34678,12 +34685,12 @@ var error48 = () => {
 };
 function zh_CN_default() {
   return {
-    localeError: error48()
+    localeError: error49()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/zh-TW.js
-var error49 = () => {
+var error50 = () => {
   const Sizable = {
     string: { unit: "\u5B57\u5143", verb: "\u64C1\u6709" },
     file: { unit: "\u4F4D\u5143\u7D44", verb: "\u64C1\u6709" },
@@ -34786,12 +34793,12 @@ var error49 = () => {
 };
 function zh_TW_default() {
   return {
-    localeError: error49()
+    localeError: error50()
   };
 }
 
 // node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/locales/yo.js
-var error50 = () => {
+var error51 = () => {
   const Sizable = {
     string: { unit: "\xE0mi", verb: "n\xED" },
     file: { unit: "bytes", verb: "n\xED" },
@@ -34894,7 +34901,7 @@ var error50 = () => {
 };
 function yo_default() {
   return {
-    localeError: error50()
+    localeError: error51()
   };
 }
 
@@ -40493,8 +40500,8 @@ function checkIsBareRepoTask() {
     parser
   };
 }
-function isNotRepoMessage(error51) {
-  return /(Not a git repository|Kein Git-Repository)/i.test(String(error51));
+function isNotRepoMessage(error52) {
+  return /(Not a git repository|Kein Git-Repository)/i.test(String(error52));
 }
 var CheckRepoActions;
 var onError;
@@ -40509,11 +40516,11 @@ var init_check_is_repo = __esm({
       CheckRepoActions2["IS_REPO_ROOT"] = "root";
       return CheckRepoActions2;
     })(CheckRepoActions || {});
-    onError = ({ exitCode }, error51, done, fail) => {
-      if (exitCode === 128 && isNotRepoMessage(error51)) {
+    onError = ({ exitCode }, error52, done, fail) => {
+      if (exitCode === 128 && isNotRepoMessage(error52)) {
         return done(Buffer.from("false"));
       }
-      fail(error51);
+      fail(error52);
     };
     parser = (text) => {
       return text.trim() === "true";
@@ -40568,12 +40575,12 @@ function adhocExecTask(parser4) {
     parser: parser4
   };
 }
-function configurationErrorTask(error51) {
+function configurationErrorTask(error52) {
   return {
     commands: EMPTY_COMMANDS,
     format: "empty",
     parser() {
-      throw typeof error51 === "string" ? new TaskConfigurationError(error51) : error51;
+      throw typeof error52 === "string" ? new TaskConfigurationError(error52) : error52;
     }
   };
 }
@@ -41270,7 +41277,7 @@ var init_git_executor_chain = __esm({
         const { exitCode, rejection, stdOut, stdErr } = result;
         return new Promise((done, fail) => {
           logger(`Preparing to handle process response exitCode=%d stdOut=`, exitCode);
-          const { error: error51 } = this._plugins.exec(
+          const { error: error52 } = this._plugins.exec(
             "task.error",
             { error: rejection },
             {
@@ -41278,11 +41285,11 @@ var init_git_executor_chain = __esm({
               ...result
             }
           );
-          if (error51 && task.onError) {
+          if (error52 && task.onError) {
             logger.info(`exitCode=%s handling with custom error handler`);
             return task.onError(
               result,
-              error51,
+              error52,
               (newStdOut) => {
                 logger.info(`custom error handler treated as success`);
                 logger(`custom error returned a %s`, objectToString(newStdOut));
@@ -41296,14 +41303,14 @@ var init_git_executor_chain = __esm({
               fail
             );
           }
-          if (error51) {
+          if (error52) {
             logger.info(
               `handling as error: exitCode=%s stdErr=%s rejection=%o`,
               exitCode,
               stdErr.length,
               rejection
             );
-            return fail(error51);
+            return fail(error52);
           }
           logger.info(`retrieving task output complete`);
           done(new GitOutputStreams(Buffer.concat(stdOut), Buffer.concat(stdErr)));
@@ -42790,11 +42797,11 @@ function version_default() {
         commands: ["--version"],
         format: "utf-8",
         parser: versionParser,
-        onError(result, error51, done, fail) {
+        onError(result, error52, done, fail) {
           if (result.exitCode === -2) {
             return done(Buffer.from(NOT_INSTALLED));
           }
-          fail(error51);
+          fail(error52);
         }
       });
     }
@@ -43260,9 +43267,9 @@ function deleteBranchesTask(branches, forceDelete = false) {
     parser(stdOut, stdErr) {
       return parseBranchDeletions(stdOut, stdErr);
     },
-    onError({ exitCode, stdOut }, error51, done, fail) {
-      if (!hasBranchDeletionError(String(error51), exitCode)) {
-        return fail(error51);
+    onError({ exitCode, stdOut }, error52, done, fail) {
+      if (!hasBranchDeletionError(String(error52), exitCode)) {
+        return fail(error52);
       }
       done(stdOut);
     }
@@ -43275,13 +43282,13 @@ function deleteBranchTask(branch, forceDelete = false) {
     parser(stdOut, stdErr) {
       return parseBranchDeletions(stdOut, stdErr).branches[branch];
     },
-    onError({ exitCode, stdErr, stdOut }, error51, _2, fail) {
-      if (!hasBranchDeletionError(String(error51), exitCode)) {
-        return fail(error51);
+    onError({ exitCode, stdErr, stdOut }, error52, _2, fail) {
+      if (!hasBranchDeletionError(String(error52), exitCode)) {
+        return fail(error52);
       }
       throw new GitResponseError(
         task.parser(bufferToString(stdOut), bufferToString(stdErr)),
-        String(error51)
+        String(error52)
       );
     }
   };
@@ -44247,9 +44254,9 @@ function getErrorMessage(result) {
   return Buffer.concat([...result.stdOut, ...result.stdErr]);
 }
 function errorDetectionHandler(overwrite = false, isError = isTaskError, errorMessage = getErrorMessage) {
-  return (error51, result) => {
-    if (!overwrite && error51 || !isError(result)) {
-      return error51;
+  return (error52, result) => {
+    if (!overwrite && error52 || !isError(result)) {
+      return error52;
     }
     return errorMessage(result);
   };
@@ -44258,16 +44265,16 @@ function errorDetectionPlugin(config2) {
   return {
     type: "task.error",
     action(data, context3) {
-      const error51 = config2(data.error, {
+      const error52 = config2(data.error, {
         stdErr: context3.stdErr,
         stdOut: context3.stdOut,
         exitCode: context3.exitCode
       });
-      if (Buffer.isBuffer(error51)) {
-        return { error: new GitError(void 0, error51.toString("utf-8")) };
+      if (Buffer.isBuffer(error52)) {
+        return { error: new GitError(void 0, error52.toString("utf-8")) };
       }
       return {
-        error: error51
+        error: error52
       };
     }
   };
@@ -44586,14 +44593,14 @@ var castToError = (err) => {
   if (typeof err === "object" && err !== null) {
     try {
       if (Object.prototype.toString.call(err) === "[object Error]") {
-        const error51 = new Error(err.message, err.cause ? { cause: err.cause } : {});
+        const error52 = new Error(err.message, err.cause ? { cause: err.cause } : {});
         if (err.stack)
-          error51.stack = err.stack;
-        if (err.cause && !error51.cause)
-          error51.cause = err.cause;
+          error52.stack = err.stack;
+        if (err.cause && !error52.cause)
+          error52.cause = err.cause;
         if (err.name)
-          error51.name = err.name;
-        return error51;
+          error52.name = err.name;
+        return error52;
       }
     } catch {
     }
@@ -44609,15 +44616,15 @@ var castToError = (err) => {
 var AnthropicError = class extends Error {
 };
 var APIError = class _APIError extends AnthropicError {
-  constructor(status, error51, message, headers) {
-    super(`${_APIError.makeMessage(status, error51, message)}`);
+  constructor(status, error52, message, headers) {
+    super(`${_APIError.makeMessage(status, error52, message)}`);
     this.status = status;
     this.headers = headers;
     this.requestID = headers?.get("request-id");
-    this.error = error51;
+    this.error = error52;
   }
-  static makeMessage(status, error51, message) {
-    const msg = error51?.message ? typeof error51.message === "string" ? error51.message : JSON.stringify(error51.message) : error51 ? JSON.stringify(error51) : message;
+  static makeMessage(status, error52, message) {
+    const msg = error52?.message ? typeof error52.message === "string" ? error52.message : JSON.stringify(error52.message) : error52 ? JSON.stringify(error52) : message;
     if (status && msg) {
       return `${status} ${msg}`;
     }
@@ -44633,32 +44640,32 @@ var APIError = class _APIError extends AnthropicError {
     if (!status || !headers) {
       return new APIConnectionError({ message, cause: castToError(errorResponse) });
     }
-    const error51 = errorResponse;
+    const error52 = errorResponse;
     if (status === 400) {
-      return new BadRequestError(status, error51, message, headers);
+      return new BadRequestError(status, error52, message, headers);
     }
     if (status === 401) {
-      return new AuthenticationError(status, error51, message, headers);
+      return new AuthenticationError(status, error52, message, headers);
     }
     if (status === 403) {
-      return new PermissionDeniedError(status, error51, message, headers);
+      return new PermissionDeniedError(status, error52, message, headers);
     }
     if (status === 404) {
-      return new NotFoundError(status, error51, message, headers);
+      return new NotFoundError(status, error52, message, headers);
     }
     if (status === 409) {
-      return new ConflictError(status, error51, message, headers);
+      return new ConflictError(status, error52, message, headers);
     }
     if (status === 422) {
-      return new UnprocessableEntityError(status, error51, message, headers);
+      return new UnprocessableEntityError(status, error52, message, headers);
     }
     if (status === 429) {
-      return new RateLimitError(status, error51, message, headers);
+      return new RateLimitError(status, error52, message, headers);
     }
     if (status >= 500) {
-      return new InternalServerError(status, error51, message, headers);
+      return new InternalServerError(status, error52, message, headers);
     }
-    return new _APIError(status, error51, message, headers);
+    return new _APIError(status, error52, message, headers);
   }
 };
 var APIUserAbortError = class extends APIError {
@@ -46510,24 +46517,24 @@ var BetaMessageStream = class _BetaMessageStream {
     _BetaMessageStream_catchingPromiseCreated.set(this, false);
     _BetaMessageStream_response.set(this, void 0);
     _BetaMessageStream_request_id.set(this, void 0);
-    _BetaMessageStream_handleError.set(this, (error51) => {
+    _BetaMessageStream_handleError.set(this, (error52) => {
       __classPrivateFieldSet(this, _BetaMessageStream_errored, true, "f");
-      if (isAbortError(error51)) {
-        error51 = new APIUserAbortError();
+      if (isAbortError(error52)) {
+        error52 = new APIUserAbortError();
       }
-      if (error51 instanceof APIUserAbortError) {
+      if (error52 instanceof APIUserAbortError) {
         __classPrivateFieldSet(this, _BetaMessageStream_aborted, true, "f");
-        return this._emit("abort", error51);
+        return this._emit("abort", error52);
       }
-      if (error51 instanceof AnthropicError) {
-        return this._emit("error", error51);
+      if (error52 instanceof AnthropicError) {
+        return this._emit("error", error52);
       }
-      if (error51 instanceof Error) {
-        const anthropicError = new AnthropicError(error51.message);
-        anthropicError.cause = error51;
+      if (error52 instanceof Error) {
+        const anthropicError = new AnthropicError(error52.message);
+        anthropicError.cause = error52;
         return this._emit("error", anthropicError);
       }
-      return this._emit("error", new AnthropicError(String(error51)));
+      return this._emit("error", new AnthropicError(String(error52)));
     });
     __classPrivateFieldSet(this, _BetaMessageStream_connectedPromise, new Promise((resolve, reject) => {
       __classPrivateFieldSet(this, _BetaMessageStream_resolveConnectedPromise, resolve, "f");
@@ -46744,22 +46751,22 @@ var BetaMessageStream = class _BetaMessageStream {
       listeners.forEach(({ listener }) => listener(...args));
     }
     if (event === "abort") {
-      const error51 = args[0];
+      const error52 = args[0];
       if (!__classPrivateFieldGet(this, _BetaMessageStream_catchingPromiseCreated, "f") && !listeners?.length) {
-        Promise.reject(error51);
+        Promise.reject(error52);
       }
-      __classPrivateFieldGet(this, _BetaMessageStream_rejectConnectedPromise, "f").call(this, error51);
-      __classPrivateFieldGet(this, _BetaMessageStream_rejectEndPromise, "f").call(this, error51);
+      __classPrivateFieldGet(this, _BetaMessageStream_rejectConnectedPromise, "f").call(this, error52);
+      __classPrivateFieldGet(this, _BetaMessageStream_rejectEndPromise, "f").call(this, error52);
       this._emit("end");
       return;
     }
     if (event === "error") {
-      const error51 = args[0];
+      const error52 = args[0];
       if (!__classPrivateFieldGet(this, _BetaMessageStream_catchingPromiseCreated, "f") && !listeners?.length) {
-        Promise.reject(error51);
+        Promise.reject(error52);
       }
-      __classPrivateFieldGet(this, _BetaMessageStream_rejectConnectedPromise, "f").call(this, error51);
-      __classPrivateFieldGet(this, _BetaMessageStream_rejectEndPromise, "f").call(this, error51);
+      __classPrivateFieldGet(this, _BetaMessageStream_rejectConnectedPromise, "f").call(this, error52);
+      __classPrivateFieldGet(this, _BetaMessageStream_rejectEndPromise, "f").call(this, error52);
       this._emit("end");
     }
   }
@@ -46954,8 +46961,8 @@ var BetaMessageStream = class _BetaMessageStream {
                 try {
                   newContent.input = partialParse(jsonBuf);
                 } catch (err) {
-                  const error51 = new AnthropicError(`Unable to parse tool parameter JSON from model. Please retry your request or adjust your prompt. Error: ${err}. JSON: ${jsonBuf}`);
-                  __classPrivateFieldGet(this, _BetaMessageStream_handleError, "f").call(this, error51);
+                  const error52 = new AnthropicError(`Unable to parse tool parameter JSON from model. Please retry your request or adjust your prompt. Error: ${err}. JSON: ${jsonBuf}`);
+                  __classPrivateFieldGet(this, _BetaMessageStream_handleError, "f").call(this, error52);
                 }
               }
               snapshot.content[event.index] = newContent;
@@ -47216,24 +47223,24 @@ var MessageStream = class _MessageStream {
     _MessageStream_catchingPromiseCreated.set(this, false);
     _MessageStream_response.set(this, void 0);
     _MessageStream_request_id.set(this, void 0);
-    _MessageStream_handleError.set(this, (error51) => {
+    _MessageStream_handleError.set(this, (error52) => {
       __classPrivateFieldSet(this, _MessageStream_errored, true, "f");
-      if (isAbortError(error51)) {
-        error51 = new APIUserAbortError();
+      if (isAbortError(error52)) {
+        error52 = new APIUserAbortError();
       }
-      if (error51 instanceof APIUserAbortError) {
+      if (error52 instanceof APIUserAbortError) {
         __classPrivateFieldSet(this, _MessageStream_aborted, true, "f");
-        return this._emit("abort", error51);
+        return this._emit("abort", error52);
       }
-      if (error51 instanceof AnthropicError) {
-        return this._emit("error", error51);
+      if (error52 instanceof AnthropicError) {
+        return this._emit("error", error52);
       }
-      if (error51 instanceof Error) {
-        const anthropicError = new AnthropicError(error51.message);
-        anthropicError.cause = error51;
+      if (error52 instanceof Error) {
+        const anthropicError = new AnthropicError(error52.message);
+        anthropicError.cause = error52;
         return this._emit("error", anthropicError);
       }
-      return this._emit("error", new AnthropicError(String(error51)));
+      return this._emit("error", new AnthropicError(String(error52)));
     });
     __classPrivateFieldSet(this, _MessageStream_connectedPromise, new Promise((resolve, reject) => {
       __classPrivateFieldSet(this, _MessageStream_resolveConnectedPromise, resolve, "f");
@@ -47450,22 +47457,22 @@ var MessageStream = class _MessageStream {
       listeners.forEach(({ listener }) => listener(...args));
     }
     if (event === "abort") {
-      const error51 = args[0];
+      const error52 = args[0];
       if (!__classPrivateFieldGet(this, _MessageStream_catchingPromiseCreated, "f") && !listeners?.length) {
-        Promise.reject(error51);
+        Promise.reject(error52);
       }
-      __classPrivateFieldGet(this, _MessageStream_rejectConnectedPromise, "f").call(this, error51);
-      __classPrivateFieldGet(this, _MessageStream_rejectEndPromise, "f").call(this, error51);
+      __classPrivateFieldGet(this, _MessageStream_rejectConnectedPromise, "f").call(this, error52);
+      __classPrivateFieldGet(this, _MessageStream_rejectEndPromise, "f").call(this, error52);
       this._emit("end");
       return;
     }
     if (event === "error") {
-      const error51 = args[0];
+      const error52 = args[0];
       if (!__classPrivateFieldGet(this, _MessageStream_catchingPromiseCreated, "f") && !listeners?.length) {
-        Promise.reject(error51);
+        Promise.reject(error52);
       }
-      __classPrivateFieldGet(this, _MessageStream_rejectConnectedPromise, "f").call(this, error51);
-      __classPrivateFieldGet(this, _MessageStream_rejectEndPromise, "f").call(this, error51);
+      __classPrivateFieldGet(this, _MessageStream_rejectConnectedPromise, "f").call(this, error52);
+      __classPrivateFieldGet(this, _MessageStream_rejectEndPromise, "f").call(this, error52);
       this._emit("end");
     }
   }
@@ -48117,8 +48124,8 @@ var BaseAnthropic = class {
   defaultIdempotencyKey() {
     return `stainless-node-retry-${uuid42()}`;
   }
-  makeStatusError(status, error51, message, headers) {
-    return APIError.generate(status, error51, message, headers);
+  makeStatusError(status, error52, message, headers) {
+    return APIError.generate(status, error52, message, headers);
   }
   buildURL(path5, query, defaultBaseURL) {
     const baseURL = !__classPrivateFieldGet(this, _BaseAnthropic_instances, "m", _BaseAnthropic_baseURLOverridden).call(this) && defaultBaseURL || this.baseURL;
@@ -48506,14 +48513,14 @@ var castToError2 = (err) => {
   if (typeof err === "object" && err !== null) {
     try {
       if (Object.prototype.toString.call(err) === "[object Error]") {
-        const error51 = new Error(err.message, err.cause ? { cause: err.cause } : {});
+        const error52 = new Error(err.message, err.cause ? { cause: err.cause } : {});
         if (err.stack)
-          error51.stack = err.stack;
-        if (err.cause && !error51.cause)
-          error51.cause = err.cause;
+          error52.stack = err.stack;
+        if (err.cause && !error52.cause)
+          error52.cause = err.cause;
         if (err.name)
-          error51.name = err.name;
-        return error51;
+          error52.name = err.name;
+        return error52;
       }
     } catch {
     }
@@ -48529,19 +48536,19 @@ var castToError2 = (err) => {
 var OpenAIError = class extends Error {
 };
 var APIError2 = class _APIError extends OpenAIError {
-  constructor(status, error51, message, headers) {
-    super(`${_APIError.makeMessage(status, error51, message)}`);
+  constructor(status, error52, message, headers) {
+    super(`${_APIError.makeMessage(status, error52, message)}`);
     this.status = status;
     this.headers = headers;
     this.requestID = headers?.get("x-request-id");
-    this.error = error51;
-    const data = error51;
+    this.error = error52;
+    const data = error52;
     this.code = data?.["code"];
     this.param = data?.["param"];
     this.type = data?.["type"];
   }
-  static makeMessage(status, error51, message) {
-    const msg = error51?.message ? typeof error51.message === "string" ? error51.message : JSON.stringify(error51.message) : error51 ? JSON.stringify(error51) : message;
+  static makeMessage(status, error52, message) {
+    const msg = error52?.message ? typeof error52.message === "string" ? error52.message : JSON.stringify(error52.message) : error52 ? JSON.stringify(error52) : message;
     if (status && msg) {
       return `${status} ${msg}`;
     }
@@ -48557,32 +48564,32 @@ var APIError2 = class _APIError extends OpenAIError {
     if (!status || !headers) {
       return new APIConnectionError2({ message, cause: castToError2(errorResponse) });
     }
-    const error51 = errorResponse?.["error"];
+    const error52 = errorResponse?.["error"];
     if (status === 400) {
-      return new BadRequestError2(status, error51, message, headers);
+      return new BadRequestError2(status, error52, message, headers);
     }
     if (status === 401) {
-      return new AuthenticationError2(status, error51, message, headers);
+      return new AuthenticationError2(status, error52, message, headers);
     }
     if (status === 403) {
-      return new PermissionDeniedError2(status, error51, message, headers);
+      return new PermissionDeniedError2(status, error52, message, headers);
     }
     if (status === 404) {
-      return new NotFoundError2(status, error51, message, headers);
+      return new NotFoundError2(status, error52, message, headers);
     }
     if (status === 409) {
-      return new ConflictError2(status, error51, message, headers);
+      return new ConflictError2(status, error52, message, headers);
     }
     if (status === 422) {
-      return new UnprocessableEntityError2(status, error51, message, headers);
+      return new UnprocessableEntityError2(status, error52, message, headers);
     }
     if (status === 429) {
-      return new RateLimitError2(status, error51, message, headers);
+      return new RateLimitError2(status, error52, message, headers);
     }
     if (status >= 500) {
-      return new InternalServerError2(status, error51, message, headers);
+      return new InternalServerError2(status, error52, message, headers);
     }
-    return new _APIError(status, error51, message, headers);
+    return new _APIError(status, error52, message, headers);
   }
 };
 var APIUserAbortError2 = class extends APIError2 {
@@ -48634,11 +48641,11 @@ var InvalidWebhookSignatureError = class extends Error {
   }
 };
 var OAuthError = class extends APIError2 {
-  constructor(status, error51, headers) {
+  constructor(status, error52, headers) {
     let finalMessage = "OAuth2 authentication error";
     let error_code = void 0;
-    if (error51 && typeof error51 === "object") {
-      const errorData = error51;
+    if (error52 && typeof error52 === "object") {
+      const errorData = error52;
       error_code = errorData["error"];
       const description = errorData["error_description"];
       if (description && typeof description === "string") {
@@ -48647,7 +48654,7 @@ var OAuthError = class extends APIError2 {
         finalMessage = error_code;
       }
     }
-    super(status, error51, finalMessage, headers);
+    super(status, error52, finalMessage, headers);
     this.error_code = error_code;
   }
 };
@@ -50578,46 +50585,46 @@ var EventStream = class {
       listeners.forEach(({ listener }) => listener(...args));
     }
     if (event === "abort") {
-      const error51 = args[0];
+      const error52 = args[0];
       if (!__classPrivateFieldGet2(this, _EventStream_catchingPromiseCreated, "f") && !listeners?.length) {
-        Promise.reject(error51);
+        Promise.reject(error52);
       }
-      __classPrivateFieldGet2(this, _EventStream_rejectConnectedPromise, "f").call(this, error51);
-      __classPrivateFieldGet2(this, _EventStream_rejectEndPromise, "f").call(this, error51);
+      __classPrivateFieldGet2(this, _EventStream_rejectConnectedPromise, "f").call(this, error52);
+      __classPrivateFieldGet2(this, _EventStream_rejectEndPromise, "f").call(this, error52);
       this._emit("end");
       return;
     }
     if (event === "error") {
-      const error51 = args[0];
+      const error52 = args[0];
       if (!__classPrivateFieldGet2(this, _EventStream_catchingPromiseCreated, "f") && !listeners?.length) {
-        Promise.reject(error51);
+        Promise.reject(error52);
       }
-      __classPrivateFieldGet2(this, _EventStream_rejectConnectedPromise, "f").call(this, error51);
-      __classPrivateFieldGet2(this, _EventStream_rejectEndPromise, "f").call(this, error51);
+      __classPrivateFieldGet2(this, _EventStream_rejectConnectedPromise, "f").call(this, error52);
+      __classPrivateFieldGet2(this, _EventStream_rejectEndPromise, "f").call(this, error52);
       this._emit("end");
     }
   }
   _emitFinal() {
   }
 };
-_EventStream_connectedPromise = /* @__PURE__ */ new WeakMap(), _EventStream_resolveConnectedPromise = /* @__PURE__ */ new WeakMap(), _EventStream_rejectConnectedPromise = /* @__PURE__ */ new WeakMap(), _EventStream_endPromise = /* @__PURE__ */ new WeakMap(), _EventStream_resolveEndPromise = /* @__PURE__ */ new WeakMap(), _EventStream_rejectEndPromise = /* @__PURE__ */ new WeakMap(), _EventStream_listeners = /* @__PURE__ */ new WeakMap(), _EventStream_ended = /* @__PURE__ */ new WeakMap(), _EventStream_errored = /* @__PURE__ */ new WeakMap(), _EventStream_aborted = /* @__PURE__ */ new WeakMap(), _EventStream_catchingPromiseCreated = /* @__PURE__ */ new WeakMap(), _EventStream_instances = /* @__PURE__ */ new WeakSet(), _EventStream_handleError = function _EventStream_handleError2(error51) {
+_EventStream_connectedPromise = /* @__PURE__ */ new WeakMap(), _EventStream_resolveConnectedPromise = /* @__PURE__ */ new WeakMap(), _EventStream_rejectConnectedPromise = /* @__PURE__ */ new WeakMap(), _EventStream_endPromise = /* @__PURE__ */ new WeakMap(), _EventStream_resolveEndPromise = /* @__PURE__ */ new WeakMap(), _EventStream_rejectEndPromise = /* @__PURE__ */ new WeakMap(), _EventStream_listeners = /* @__PURE__ */ new WeakMap(), _EventStream_ended = /* @__PURE__ */ new WeakMap(), _EventStream_errored = /* @__PURE__ */ new WeakMap(), _EventStream_aborted = /* @__PURE__ */ new WeakMap(), _EventStream_catchingPromiseCreated = /* @__PURE__ */ new WeakMap(), _EventStream_instances = /* @__PURE__ */ new WeakSet(), _EventStream_handleError = function _EventStream_handleError2(error52) {
   __classPrivateFieldSet2(this, _EventStream_errored, true, "f");
-  if (error51 instanceof Error && error51.name === "AbortError") {
-    error51 = new APIUserAbortError2();
+  if (error52 instanceof Error && error52.name === "AbortError") {
+    error52 = new APIUserAbortError2();
   }
-  if (error51 instanceof APIUserAbortError2) {
+  if (error52 instanceof APIUserAbortError2) {
     __classPrivateFieldSet2(this, _EventStream_aborted, true, "f");
-    return this._emit("abort", error51);
+    return this._emit("abort", error52);
   }
-  if (error51 instanceof OpenAIError) {
-    return this._emit("error", error51);
+  if (error52 instanceof OpenAIError) {
+    return this._emit("error", error52);
   }
-  if (error51 instanceof Error) {
-    const openAIError = new OpenAIError(error51.message);
-    openAIError.cause = error51;
+  if (error52 instanceof Error) {
+    const openAIError = new OpenAIError(error52.message);
+    openAIError.cause = error52;
     return this._emit("error", openAIError);
   }
-  return this._emit("error", new OpenAIError(String(error51)));
+  return this._emit("error", new OpenAIError(String(error52)));
 };
 
 // node_modules/.pnpm/openai@6.39.1_zod@4.4.3/node_modules/openai/lib/RunnableFunction.mjs
@@ -50825,8 +50832,8 @@ var AbstractChatCompletionRunner = class extends EventStream {
         let parsed;
         try {
           parsed = isRunnableFunctionWithParse(fn) ? await fn.parse(args) : args;
-        } catch (error51) {
-          const content2 = error51 instanceof Error ? error51.message : String(error51);
+        } catch (error52) {
+          const content2 = error52 instanceof Error ? error52.message : String(error52);
           this._addMessage({ role, tool_call_id, content: content2 });
           continue;
         }
@@ -57742,8 +57749,8 @@ var OpenAI = class {
   defaultIdempotencyKey() {
     return `stainless-node-retry-${uuid43()}`;
   }
-  makeStatusError(status, error51, message, headers) {
-    return APIError2.generate(status, error51, message, headers);
+  makeStatusError(status, error52, message, headers) {
+    return APIError2.generate(status, error52, message, headers);
   }
   async _callApiKey() {
     const apiKey = this._options.apiKey;
@@ -58161,14 +58168,14 @@ OpenAI.Evals = Evals;
 OpenAI.Containers = Containers;
 OpenAI.Skills = Skills;
 OpenAI.Videos = Videos;
-function getConnectionErrorMessage(error51) {
-  if (isUndiciDispatcherVersionMismatchError(error51)) {
+function getConnectionErrorMessage(error52) {
+  if (isUndiciDispatcherVersionMismatchError(error52)) {
     return `Connection error. This may be caused by passing an undici dispatcher, such as ProxyAgent, that is incompatible with the fetch implementation. If you are using undici's ProxyAgent, pass the fetch implementation from the same undici package: import { fetch, ProxyAgent } from 'undici'; new OpenAI({ fetch, fetchOptions: { dispatcher: new ProxyAgent(...) } });`;
   }
   return void 0;
 }
-function isUndiciDispatcherVersionMismatchError(error51) {
-  let current = error51;
+function isUndiciDispatcherVersionMismatchError(error52) {
+  let current = error52;
   for (let i2 = 0; i2 < 8 && current && typeof current === "object"; i2++) {
     const err = current;
     if (err.code === "UND_ERR_INVALID_ARG" && typeof err.message === "string" && err.message.includes("invalid onRequestStart method")) {
@@ -58216,8 +58223,8 @@ async function generateProposal(contextFile, flaggedStatements, diff, options = 
       confidence,
       tokensUsed: 0
     };
-  } catch (error51) {
-    const message = error51 instanceof Error ? error51.message : String(error51);
+  } catch (error52) {
+    const message = error52 instanceof Error ? error52.message : String(error52);
     const reportPath = writeFallbackReportIfEnabled(contextFile, flaggedStatements, message, options);
     return createEmptyProposal(
       reportPath ? `LLM proposal generation failed: ${message}. Drift report written to ${reportPath}.` : `LLM proposal generation failed: ${message}.`,
@@ -58409,7 +58416,14 @@ async function run() {
     const repoRoot = process.cwd();
     const config2 = loadConfig(repoRoot);
     const threshold = Number(getInput("confidence-threshold") || config2.confidenceThreshold);
-    const diff = await getDiffFromRange(pullRequest.base.sha, pullRequest.head.sha);
+    const baseSha = pullRequest.base?.sha;
+    const headSha = pullRequest.head?.sha;
+    if (!baseSha || !headSha) {
+      warning(`driftguard action skipped: missing PR SHAs (base=${baseSha}, head=${headSha}).`);
+      setNoDriftOutputs();
+      return;
+    }
+    const diff = await getDiffFromRange(baseSha, headSha);
     const contextFiles = findContextFiles(repoRoot, config2.contextFiles);
     const flaggedStatementsByFile = contextFiles.map((contextPath) => {
       const contextFile = parseContextFile(contextPath);
@@ -58447,8 +58461,8 @@ async function run() {
         issueNumber: pullRequest.number
       });
     }
-  } catch (error51) {
-    const message = error51 instanceof Error ? error51.message : String(error51);
+  } catch (error52) {
+    const message = error52 instanceof Error ? error52.message : String(error52);
     warning(`driftguard action skipped after error: ${message}`);
     setNoDriftOutputs();
   } finally {
@@ -58522,7 +58536,11 @@ ${proposal || "No unified diff was generated. Please inspect the flagged context
 Apply this suggestion by merging the [auto-generated PR](#link) or editing \`CLAUDE.md\` manually.
 *Generated by driftguard \xB7 [Disable this comment](link-to-docs)*`;
 }
-void run();
+void run().catch((err) => {
+  error(`driftguard action failed: ${err}`);
+  setFailed(String(err));
+  process.exit(0);
+});
 /*! Bundled license information:
 
 undici/lib/web/fetch/body.js:

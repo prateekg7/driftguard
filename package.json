@@ -1,5 +1,5 @@
 {
-  "name": "driftguard",
+  "name": "agent-driftguard",
   "version": "1.0.0",
   "description": "Detect semantic drift in AI agent context files after code changes.",
   "type": "module",

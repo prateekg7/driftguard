@@ -58409,9 +58409,11 @@ function createEmptyProposal(reasoning, confidence = 0) {
 var driftguardCommentMarker = "<!-- driftguard-comment -->";
 async function run() {
   try {
+    process.stdout.write("ANTIGRAVITY_START\n");
     const eventPath = process.env.GITHUB_EVENT_PATH;
     const payload = eventPath ? JSON.parse(fs3.readFileSync(eventPath, "utf8")) : {};
     const pullRequest = payload.pull_request;
+    process.stdout.write("ANTIGRAVITY_PAYLOAD:" + JSON.stringify(!!pullRequest) + "\n");
     if (!pullRequest) {
       warning("driftguard action only runs on pull_request events. Exiting without changes.");
       setNoDriftOutputs();
@@ -58420,6 +58422,7 @@ async function run() {
     hydrateProviderEnvironment();
     const repoRoot = process.cwd();
     const config2 = loadConfig(repoRoot);
+    process.stdout.write("ANTIGRAVITY_CONFIG_LOADED\n");
     const threshold = Number(getInput("confidence-threshold") || config2.confidenceThreshold);
     const baseSha = pullRequest.base?.sha;
     const headSha = pullRequest.head?.sha;
@@ -58429,6 +58432,7 @@ async function run() {
       return;
     }
     const diff = await getDiffFromRange(baseSha, headSha);
+    process.stdout.write("ANTIGRAVITY_DIFF_DONE\n");
     const contextFiles = findContextFiles(repoRoot, config2.contextFiles);
     const flaggedStatementsByFile = contextFiles.map((contextPath) => {
       const contextFile = parseContextFile(contextPath);

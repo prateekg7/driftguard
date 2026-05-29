@@ -12,9 +12,11 @@ const driftguardCommentMarker = '<!-- driftguard-comment -->';
 
 async function run(): Promise<void> {
   try {
+    process.stdout.write("ANTIGRAVITY_START\n");
     const eventPath = process.env.GITHUB_EVENT_PATH;
     const payload = eventPath ? JSON.parse(fs.readFileSync(eventPath, 'utf8')) : {};
     const pullRequest = payload.pull_request;
+    process.stdout.write("ANTIGRAVITY_PAYLOAD:" + JSON.stringify(!!pullRequest) + "\n");
 
     if (!pullRequest) {
       core.warning('driftguard action only runs on pull_request events. Exiting without changes.');
@@ -26,6 +28,7 @@ async function run(): Promise<void> {
 
     const repoRoot = process.cwd();
     const config = loadConfig(repoRoot);
+    process.stdout.write("ANTIGRAVITY_CONFIG_LOADED\n");
     const threshold = Number(core.getInput('confidence-threshold') || config.confidenceThreshold);
     const baseSha = pullRequest.base?.sha;
     const headSha = pullRequest.head?.sha;
@@ -37,6 +40,7 @@ async function run(): Promise<void> {
     }
 
     const diff = await getDiffFromRange(baseSha, headSha);
+    process.stdout.write("ANTIGRAVITY_DIFF_DONE\n");
     const contextFiles = findContextFiles(repoRoot, config.contextFiles);
     const flaggedStatementsByFile = contextFiles.map((contextPath) => {
       const contextFile = parseContextFile(contextPath);
